@@ -1,0 +1,38 @@
+{
+  "name": "node_loginsystem",
+  "version": "1.0.0",
+  "description": "login logic node",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graphiiics/Node_LoginSystem.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "login"
+  ],
+  "author": "@graphiiics",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/graphiiics/Node_LoginSystem/issues"
+  },
+  "homepage": "https://github.com/graphiiics/Node_LoginSystem#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.16"
+  }
+}
