@@ -5,11 +5,15 @@ if(process.env.NODE_ENV !== 'production'){
 const express = require('express');
 //const { redirect } = require('express/lib/response');
 const app = express();
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session'); 
 const methodOverride = require('method-override');
+
+const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 const initializePassport = require('./passport-config');
 initializePassport(
@@ -31,6 +35,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+
+app.use('/users', userRouter);
+app.use('/auth', authRouter);
+
 
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.name });
@@ -68,8 +76,10 @@ app.post('/register', checkNotAuthenticated,  async (req, res) => {
 });
 
 app.delete('/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/login');
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
 });
 
 function checkAuthenticated(req, res, next){
@@ -86,4 +96,13 @@ function checkNotAuthenticated(req, res, next){
     next();
 }
 
-app.listen(3000);
+const CONNECTION_URL = 'mongodb+srv://m220student:2011670055@mflix.n8n6l.mongodb.net/loginSystem?retryWrites=true&w=majority';
+
+mongoose.connect(CONNECTION_URL, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+}).then(() => {
+    app.listen(3000, () => console.log('Server running on port: 3000'));
+}).catch((error) => {
+    console.log(`${error} DID NOT CONNECT!`);
+})
