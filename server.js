@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
 })
 
 
-const CONNECTION_URL = 'mongodb+srv://m220student:2011670055@mflix.n8n6l.mongodb.net/loginSystem?retryWrites=true&w=majority';
+const CONNECTION_URL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@mflix.n8n6l.mongodb.net/loginSystem?retryWrites=true&w=majority`;
 
 mongoose.connect(CONNECTION_URL, {
     useNewUrlParser: true, 
